@@ -17,7 +17,7 @@ export function GetHelpForm({onChange}:{onChange: any}) {
     emailAddress:'',
     phoneNumber:'',
     description:'',
-    captcha:''
+    captchaResponse:''
   });
 
 
@@ -86,8 +86,8 @@ export function GetHelpForm({onChange}:{onChange: any}) {
         <Box mt={1} pr={0} border={1}>
           <ReCAPTCHA
             sitekey="6LewGbMpAAAAAKCTIQGZ2aB3rJnM3eKH-9KqgIPG"
-            onChange={(data:string) => {
-              handleChange({target:{name:'captcha', value:data}} as any)
+            onChange={(data:any) => {
+              handleChange({target:{name:'captchaResponse', value:data}} as any)
             }}
           />
         </Box>

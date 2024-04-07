@@ -2,6 +2,9 @@ import { z } from 'zod';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { v4 as uuidv4 } from 'uuid';
 import { createTable } from '@/db';
+import { NextRequest } from 'next/server';
+import { verifyReCaptcha } from '@/app/rest-client';
+
 
 // Define a Zod schema for input validation
 const schema = z.object({
@@ -13,14 +16,24 @@ const schema = z.object({
     }),
     phoneNumber: z.string().min(1),
     description: z.string().min(1),
+    // Add a new field for reCAPTCHA response
+    captchaResponse: z.string().min(1),
 });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     await createTable();
     try {
-        const requestBody = await req.json()
-        // Parse and validate input data
-        const { business, firstName, lastName, emailAddress, phoneNumber, description } = schema.parse(requestBody);
+        // Parse and validate input data using parseBody
+        const body  = await req.json()
+        const { business, firstName, lastName, emailAddress, phoneNumber, description, captchaResponse } = schema.parse(body);
+
+        // Verify the reCAPTCHA response using the secret key stored in the environment variable
+        const isValidCaptcha = await verifyReCaptcha(captchaResponse)
+        if (!isValidCaptcha) {
+            return new Response(JSON.stringify({ message: 'Invalid reCAPTCHA response' }), {
+                status: 400,
+            });
+        }
 
         // Generate a UUID for the primary key
         const id = uuidv4();
@@ -51,19 +64,19 @@ export async function POST(req: Request) {
 
         return new Response(JSON.stringify({ message: 'Item added to DynamoDB successfully' }), {
             status: 200,
-          });
+        });
     } catch (error) {
-        console.error(error)
+        console.error(error);
         // Check if the error is a JSON parse error
         if (error instanceof SyntaxError) {
-            return new Response(JSON.stringify({ message: 'Malformed JSON request body', error }),{
+            return new Response(JSON.stringify({ message: 'Malformed JSON request body', error }), {
                 status: 400,
-            })
+            });
         }
 
         // Handle validation errors
-        return new Response(JSON.stringify({ message: `invalid input data`, error }),{
+        return new Response(JSON.stringify({ message: 'Invalid input data', error }), {
             status: 400,
-        })
+        });
     }
 }
