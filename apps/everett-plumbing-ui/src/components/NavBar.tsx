@@ -8,17 +8,21 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Image from 'next/image';
-import Link from 'next/link';
+import PhoneIcon from '@mui/icons-material/Phone';
+import HomeRepairService from '@mui/icons-material/HomeRepairService';
+import FormatQuote from '@mui/icons-material/FormatQuote';
 
-const pages = ['Services', 'Pricing', 'Schedule Appointment'];
+import theme from '@/theme';
+import { BUSINESS_SPECIFIC_DATA, BUSINESS } from '@/globals';
+import { formatPhoneNumber } from '@/utils';
+
+const pages = [formatPhoneNumber(BUSINESS_SPECIFIC_DATA[BUSINESS].phone), 'Services', 'Testimonials'];
+const href = [`tel:${BUSINESS_SPECIFIC_DATA[BUSINESS].phone}`, '#services', '#testimonials'];
+const icons = [<PhoneIcon sx={{ height: 20, mr: 1 }} />, <HomeRepairService sx={{ height: 20, mr: 1 }} />, <FormatQuote sx={{ height: 20, mr: 1 }} />];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+const colors = [{ backgroundColor: theme.palette.success.main }, {}, {}]
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -42,14 +46,10 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-            <Box >
-                {/* <Image alt="everett plumbing logo" src='/logo/plumber.png'  height="30" width="30" style={{display:'flex'}}/> */}
-            </Box>
-            
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
+            color='inherit'
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
@@ -62,7 +62,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            PLUMBING
+            {BUSINESS_SPECIFIC_DATA[BUSINESS].name.toUpperCase()}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -94,15 +94,17 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+
+              {pages.map((page, i) => (
+                <MenuItem
+                  key={page} onClick={handleCloseNavMenu} style={{
+                    display: 'flex', textAlign: 'center', ...colors[i]
+                  }}>
+                  {icons[i] && icons[i]} {page}
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-          
 
           <Typography
             variant="h5"
@@ -120,54 +122,38 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-           <a 
-           aria-label='Call now'
-           style={{fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none'}} href={`tel:${4259054469}`}>{`(425)9054469`}</a>
+            <a
+              aria-label='Call now'
+              style={{
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.1rem',
+                color: 'inherit',
+                textDecoration: 'none'
+              }} href={`tel:${BUSINESS_SPECIFIC_DATA[BUSINESS].phone}`}>{BUSINESS_SPECIFIC_DATA[BUSINESS].name}</a>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, i) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                href={href[i] ? (href[i] as string) : ''}
+                sx={{
+                  ...colors[i],
+                  my: 2,
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center'
+                }}
               >
-                {page}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {icons[i] && icons[i]}
+                  <div>{page}</div>
+                </div>
               </Button>
             ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Image alt="everett plumbing logo" src='/images/plunger1.png'  height="30" width="30"/>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>

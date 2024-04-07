@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { formatPhoneNumber } from '@/utils';
+import { PHONE_NUMBERS } from '@/globals';
 
 const drawerBleeding = 56;
 
@@ -91,7 +93,7 @@ export default function SwipeableEdgeDrawer(props: Props) {
           <Puller />
           <Typography sx={{ p: 2, color: 'text.secondary'}}>Contact Us</Typography>
           <Typography sx={{ p: 2, color: 'text.secondary'}}>
-            <Button>425 905-4469</Button>
+            <Button>{formatPhoneNumber(PHONE_NUMBERS['everett-plumbers'])}</Button>
           </Typography>
           <Typography sx={{ p: 2, color: 'text.secondary'}}>
             What we offer
