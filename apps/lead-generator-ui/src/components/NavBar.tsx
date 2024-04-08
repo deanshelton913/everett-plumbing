@@ -25,7 +25,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
 
 
   const pages = [formatPhoneNumber(BUSINESS_SPECIFIC_DATA[business].phone), 'Services', 'Testimonials'];
-  const href = [`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`, `/${business}/#services`, `${business}/#testimonials`];
+  const href = [`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`, `/#services`, `/#testimonials`];
   const icons = [<PhoneIcon sx={{ height: 20, mr: 1 }} />, <HomeRepairService sx={{ height: 20, mr: 1 }} />, <FormatQuote sx={{ height: 20, mr: 1 }} />];
   const colors = [{ backgroundColor: theme.palette.success.main }, {}, {}]
 
