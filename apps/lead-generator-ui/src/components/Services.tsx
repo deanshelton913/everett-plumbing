@@ -16,7 +16,7 @@ export const Services: React.FC<{business: keyof typeof BUSINESS_SPECIFIC_DATA}>
         {BUSINESS_SPECIFIC_DATA[business].services.map((obj) => {
           return (
             <Grid item key={obj.slug} xs={10} sm={6} md={3}>
-              <Link href={`${business}/services/${obj.slug}`} style={{textDecoration:'none'}}>
+              <Link href={`/services/${obj.slug}`} style={{textDecoration:'none'}}>
                 <MediaCard
                   title={obj.teaser.title}
                   imageKey={`${business}${obj.teaser.imageKey}`}
