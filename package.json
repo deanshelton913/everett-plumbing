@@ -1,5 +1,5 @@
 {
-  "name": "everett-plumbing",
+  "name": "lead-generator",
   "private": true,
   "scripts": {
     "build": "turbo build",

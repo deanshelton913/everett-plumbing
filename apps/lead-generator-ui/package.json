@@ -19,7 +19,6 @@
     "@mui/icons-material": "next",
     "@mui/material": "next",
     "@mui/material-nextjs": "next",
-    "@repo/sih-tools": "*",
     "express-recaptcha": "^5.1.0",
     "next": "latest",
     "react": "latest",

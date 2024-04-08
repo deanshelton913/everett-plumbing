@@ -116,8 +116,8 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
             }}
           >
             <a
-              aria-label='Call now'
-              href={`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`}
+              aria-label='Company Name'
+              href="/"
               style={{
                 fontFamily: 'monospace',
                 fontWeight: 700,
