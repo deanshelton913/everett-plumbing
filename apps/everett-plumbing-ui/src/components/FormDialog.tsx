@@ -9,13 +9,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { GetHelpForm } from './GetHelpForm';
 import Email from '@mui/icons-material/Email';
 import { Typography } from '@mui/material';
-import { BUSINESS } from '@/globals';
+import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { sendCustomerOutreachData } from '@/app/rest-client';
 
-export default function FormDialog({inline}:{inline:boolean}) {
+export default function FormDialog({inline, business}:{inline:boolean, business: keyof typeof BUSINESS_SPECIFIC_DATA}) {
   const [open, setOpen] = React.useState(false);
-  const [dataToSend, setDataToSend] = React.useState({business: BUSINESS});
-
+  console.log('BUSINESS', business)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -24,12 +23,6 @@ export default function FormDialog({inline}:{inline:boolean}) {
     setOpen(false);
   };
 
-  const onChange = (data:any) => {
-    setDataToSend({
-      ...dataToSend,
-      ...data
-    })
-  };
 
   return (
     <React.Fragment>
@@ -46,13 +39,12 @@ export default function FormDialog({inline}:{inline:boolean}) {
         onClose={handleClose}
         PaperProps={{
           component: 'form',
-          sx:{maxWidth:400},
+          sx:{maxWidth:350},
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            const email = formJson.email;
-            sendCustomerOutreachData(dataToSend).then(console.log).catch(console.error)
+            sendCustomerOutreachData({...formJson, business}).then(console.log).catch(console.error)
             handleClose();
           },
         }}
@@ -64,7 +56,7 @@ export default function FormDialog({inline}:{inline:boolean}) {
           we will contact you via phone, email,
            or text about service details. 
           </DialogContentText>
-          <GetHelpForm onChange={onChange} />
+          <GetHelpForm />
           <Typography component={'div'} sx={{mt:2}} variant='caption'>
           
            You can opt out anytime. 

@@ -15,31 +15,26 @@ import HomeRepairService from '@mui/icons-material/HomeRepairService';
 import FormatQuote from '@mui/icons-material/FormatQuote';
 
 import theme from '@/theme';
-import { BUSINESS_SPECIFIC_DATA, BUSINESS } from '@/globals';
+import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { formatPhoneNumber } from '@/utils';
 
-const pages = [formatPhoneNumber(BUSINESS_SPECIFIC_DATA[BUSINESS].phone), 'Services', 'Testimonials'];
-const href = [`tel:${BUSINESS_SPECIFIC_DATA[BUSINESS].phone}`, '#services', '#testimonials'];
-const icons = [<PhoneIcon sx={{ height: 20, mr: 1 }} />, <HomeRepairService sx={{ height: 20, mr: 1 }} />, <FormatQuote sx={{ height: 20, mr: 1 }} />];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const colors = [{ backgroundColor: theme.palette.success.main }, {}, {}]
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIFIC_DATA }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+
+
+  const pages = [formatPhoneNumber(BUSINESS_SPECIFIC_DATA[business].phone), 'Services', 'Testimonials'];
+  const href = [`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`, `/${business}/#services`, `${business}/#testimonials`];
+  const icons = [<PhoneIcon sx={{ height: 20, mr: 1 }} />, <HomeRepairService sx={{ height: 20, mr: 1 }} />, <FormatQuote sx={{ height: 20, mr: 1 }} />];
+  const colors = [{ backgroundColor: theme.palette.success.main }, {}, {}]
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -50,10 +45,9 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             color='inherit'
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component="div"
+            mr={2}
             sx={{
-              mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -62,7 +56,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            {BUSINESS_SPECIFIC_DATA[BUSINESS].name.toUpperCase()}
+            {BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -109,10 +103,9 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component="div"
+            mr={2}
             sx={{
-              mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
@@ -124,13 +117,14 @@ function ResponsiveAppBar() {
           >
             <a
               aria-label='Call now'
+              href={`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`}
               style={{
                 fontFamily: 'monospace',
                 fontWeight: 700,
-                letterSpacing: '.1rem',
+                letterSpacing: '0.1rem',
                 color: 'inherit',
                 textDecoration: 'none'
-              }} href={`tel:${BUSINESS_SPECIFIC_DATA[BUSINESS].phone}`}>{BUSINESS_SPECIFIC_DATA[BUSINESS].name}</a>
+              }}>{BUSINESS_SPECIFIC_DATA[business].name}</a>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, i) => (
@@ -160,4 +154,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;

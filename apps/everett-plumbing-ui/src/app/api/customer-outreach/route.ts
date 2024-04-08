@@ -17,7 +17,7 @@ const schema = z.object({
     phoneNumber: z.string().min(1),
     description: z.string().min(1),
     // Add a new field for reCAPTCHA response
-    captchaResponse: z.string().min(1),
+    'g-recaptcha-response': z.string().min(1),
 });
 
 export async function POST(req: NextRequest) {
@@ -25,10 +25,10 @@ export async function POST(req: NextRequest) {
     try {
         // Parse and validate input data using parseBody
         const body  = await req.json()
-        const { business, firstName, lastName, emailAddress, phoneNumber, description, captchaResponse } = schema.parse(body);
+        const { business, firstName, lastName, emailAddress, phoneNumber, description } = schema.parse(body);
 
         // Verify the reCAPTCHA response using the secret key stored in the environment variable
-        const isValidCaptcha = await verifyReCaptcha(captchaResponse)
+        const isValidCaptcha = await verifyReCaptcha(body['g-recaptcha-response'])
         if (!isValidCaptcha) {
             return new Response(JSON.stringify({ message: 'Invalid reCAPTCHA response' }), {
                 status: 400,

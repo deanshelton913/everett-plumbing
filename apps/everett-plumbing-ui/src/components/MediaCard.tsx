@@ -17,38 +17,41 @@ export default function MediaCard({ imageKey, title, text }: { imageKey: string;
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
   const getImageHeight = () => {
-    if (isSm) return 100; // 100px height for sm
     if (isMd) return 200; // 200px height for md
     return 300; // 300px height for md and above
   };
 
+  const getImageWidth = () => {
+    if (isMd) return 395; // 200px height for md
+    return 268; // 300px height for md and above
+  };
+
   return (
     <Card>
-      <Typography>
-        <Hidden smDown>
-          <CardMedia
-            sx={{ height: getImageHeight() }}
-            image={getSihImageRequestUrl({
-              src: imageKey,
-              width: 345,
-              quality: 1,
-            })}
-            title={title}
-          />
-        </Hidden>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div"  sx={{ textDecoration: 'none' }}>
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {text}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" >Learn More</Button>
-        </CardActions>
-      </Typography>
+      <Hidden smDown>
+        <CardMedia
+          sx={{ height: getImageHeight() }}
 
+          image={getSihImageRequestUrl({
+            src: imageKey,
+            width: getImageWidth(),
+            height: getImageHeight(),
+            quality: 1,
+          })}
+          title={title}
+        />
+      </Hidden>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div" sx={{ textDecoration: 'none' }}>
+          {title}
+        </Typography>
+        <Typography variant="body2" component="div" color="text.secondary">
+          {text}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" >Learn More</Button>
+      </CardActions>
     </Card>
   );
 }

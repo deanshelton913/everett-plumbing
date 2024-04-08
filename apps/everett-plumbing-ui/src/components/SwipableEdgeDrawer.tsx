@@ -93,7 +93,7 @@ export default function SwipeableEdgeDrawer(props: Props) {
           <Puller />
           <Typography sx={{ p: 2, color: 'text.secondary'}}>Contact Us</Typography>
           <Typography sx={{ p: 2, color: 'text.secondary'}}>
-            <Button>{formatPhoneNumber(PHONE_NUMBERS['everett-plumbers'])}</Button>
+            <Button>{formatPhoneNumber(BUSINESS_SPECIFIC_DATA[business].phone)}</Button>
           </Typography>
           <Typography sx={{ p: 2, color: 'text.secondary'}}>
             What we offer
