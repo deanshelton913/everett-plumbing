@@ -1,5 +1,4 @@
-"use client"
-import { Button, Hidden, Paper } from "@mui/material"
+import { Button, Paper } from "@mui/material"
 import PhoneIcon from '@mui/icons-material/Phone';
 import theme from "@/theme";
 import FormDialog from "./FormDialog";
@@ -9,11 +8,10 @@ import { formatPhoneNumber } from "@/utils";
 
 export const LargeCTA: React.FC<any> = ({business}:{business: keyof typeof BUSINESS_SPECIFIC_DATA}) => (
     <Paper sx={{ p: 1, mt: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }} elevation={8}>
-
         <Button
             sx={{
                 // width: '100%',
-                backgroundColor: theme.palette.success.main,
+                backgroundColor: `#66bb6a`,
                 my: 2,
                 color: 'white',
                 display: 'flex',

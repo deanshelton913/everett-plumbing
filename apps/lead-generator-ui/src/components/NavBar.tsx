@@ -25,7 +25,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
   const pages = [formatPhoneNumber(BUSINESS_SPECIFIC_DATA[business].phone), 'Services', 'Testimonials'];
   const href = [`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`, `/#services`, `/#testimonials`];
   const icons = [<PhoneIcon sx={{ height: 20, mr: 1 }} />, <HomeRepairService sx={{ height: 20, mr: 1 }} />, <FormatQuote sx={{ height: 20, mr: 1 }} />];
-  const colors = [{ backgroundColor: theme.palette.success.main }, {}, {}]
+  const colors = [{ backgroundColor: `#66bb6a` }, {}, {}]
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -108,7 +108,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
                     key={page} onClick={handleCloseNavMenu} style={{
                       display: 'flex', textAlign: 'center', ...colors[i]
                     }}>
-                    <Link href={href[i] || '#'} style={{ textDecoration: 'none', color: theme.palette.text.primary }}>
+                    <Link href={href[i] || '#'} style={{ textDecoration: 'none', color: `#fff` }}>
                       {icons[i] && icons[i]} {page}
                     </Link>
                   </MenuItem>

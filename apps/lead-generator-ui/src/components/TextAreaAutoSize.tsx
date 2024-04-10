@@ -36,10 +36,10 @@ export function MinHeightTextarea({onChange, value, name}:any) {
     line-height: 1.5;
     padding: 8px 12px;
     border-radius: 8px;
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-    background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    box-shadow: 0px 2px 2px ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
+    color: ${grey[300]};
+    background: ${grey[900]};
+    border: 1px solid ${grey[700]};
+    box-shadow: 0px 2px 2px ${grey[900]};
 
     &:hover {
       border-color: ${blue[400]};
@@ -47,7 +47,7 @@ export function MinHeightTextarea({onChange, value, name}:any) {
 
     &:focus {
       border-color: ${blue[400]};
-      box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[600] : blue[200]};
+      box-shadow: 0 0 0 3px ${blue[600]};
     }
 
     // firefox

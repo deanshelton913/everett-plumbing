@@ -13,7 +13,6 @@ import { Hero } from '@/components/Hero';
 import { Hidden } from '@mui/material';
 import FormDialog from '@/components/FormDialog';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
-import Head from 'next/head';
 
 
 const addJsonLd = (business: keyof typeof BUSINESS_SPECIFIC_DATA) => {
@@ -80,9 +79,6 @@ export default function Home({ params }: Props) {
 
   return (
     <div>
-      <Head>
-        <title>{BUSINESS_SPECIFIC_DATA[params.business].name}</title>
-      </Head>
       <section>
         <script
           type="application/ld+json"

@@ -1,5 +1,4 @@
 "use client"
-import ReCAPTCHA from "react-google-recaptcha";
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Input from '@mui/material/Input';
@@ -7,6 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { Box, Paper } from '@mui/material';
 import { MinHeightTextarea } from './TextAreaAutoSize';
+import { ReCaptcha } from "./RecaptchaClientSideComponent";
 
 
 
@@ -85,12 +85,7 @@ export function GetHelpForm() {
 
       </Paper>
       <Box mt={2} pr={0}>
-        <ReCAPTCHA
-          sitekey="6LewGbMpAAAAAKCTIQGZ2aB3rJnM3eKH-9KqgIPG"
-          onChange={(data: any) => {
-            handleChange({ target: { name: 'captchaResponse', value: data } } as any)
-          }}
-        />
+        <ReCaptcha handleChange={handleChange}/>
       </Box>
     </Box>
   );
