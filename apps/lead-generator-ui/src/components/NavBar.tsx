@@ -20,10 +20,6 @@ import { formatPhoneNumber } from '@/utils';
 
 function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIFIC_DATA }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-
-
   const pages = [formatPhoneNumber(BUSINESS_SPECIFIC_DATA[business].phone), 'Services', 'Testimonials'];
   const href = [`tel:${BUSINESS_SPECIFIC_DATA[business].phone}`, `/#services`, `/#testimonials`];
   const icons = [<PhoneIcon sx={{ height: 20, mr: 1 }} />, <HomeRepairService sx={{ height: 20, mr: 1 }} />, <FormatQuote sx={{ height: 20, mr: 1 }} />];

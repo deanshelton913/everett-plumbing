@@ -10,12 +10,11 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
       <Typography variant="h2">
         Services
       </Typography>
-      <Typography pb={2}>
+      <Typography pb={2} textAlign={'justify'} maxWidth={600}>
         {BUSINESS_SPECIFIC_DATA[business].servicesDescription}
       </Typography>
       <Hidden smDown>
         <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-
           {BUSINESS_SPECIFIC_DATA[business].services.map((obj) => {
             return (
               <Grid item key={obj.slug} xs={10} sm={6} md={3}>
@@ -40,7 +39,7 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
             gridRow: 'auto auto',
             columnGap: '10px',
             rowGap: '10px',
-            maxWidth:300,
+            maxWidth: 300,
             margin: '0 auto'
           }}>
 

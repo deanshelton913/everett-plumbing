@@ -51,6 +51,7 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  if(!params.slug) return {}
   const service = BUSINESS_SPECIFIC_DATA[params.business].services.find(x => x.slug === params.slug)
   if (!service) {
     console.warn('missing service', params.business, params.slug)

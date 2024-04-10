@@ -26,7 +26,6 @@ export default async function middleware(req: NextRequest) {
   if (url.pathname.startsWith(`/_sites`)) {
     url.pathname = `/404`
   } else {
-    console.log('URL 2', req.nextUrl.href, url.pathname)
     const businesses = Object.keys(BUSINESS_SPECIFIC_DATA)
     for(var i =0; i < businesses.length; i++) {
       const business = businesses[i];
