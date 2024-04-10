@@ -1,24 +1,11 @@
 import { z } from 'zod';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { v4 as uuidv4 } from 'uuid';
-import { createTable } from '@/db';
+import { createTable, schema } from '@/db';
 import { NextRequest } from 'next/server';
 import { verifyReCaptcha } from '@/app/rest-client';
 
 
-// Define a Zod schema for input validation
-export const schema = z.object({
-    business: z.string().min(1),
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    emailAddress: z.string().min(1).refine((val) => val.includes('@'), {
-        message: 'Email address must contain an "@" symbol',
-    }),
-    phoneNumber: z.string().min(1),
-    description: z.string().min(1),
-    // Add a new field for reCAPTCHA response
-    'g-recaptcha-response': z.string().min(1),
-});
 
 export async function POST(req: NextRequest) {
     await createTable();

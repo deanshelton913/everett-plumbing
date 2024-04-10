@@ -11,8 +11,8 @@ import Email from '@mui/icons-material/Email';
 import { Typography } from '@mui/material';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { sendCustomerOutreachData } from '@/app/rest-client';
-import { schema } from '@/app/api/customer-outreach/route';
 import { z } from 'zod';
+import { schema } from '@/db';
 
 export default function FormDialog({inline, business}:{inline:boolean, business: keyof typeof BUSINESS_SPECIFIC_DATA}) {
   const [open, setOpen] = React.useState(false);

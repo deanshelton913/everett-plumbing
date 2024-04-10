@@ -1,4 +1,5 @@
 import { DynamoDBClient, CreateTableCommand, DescribeTableCommand } from '@aws-sdk/client-dynamodb';
+import { z } from 'zod';
 
 // Create a DynamoDB client
 const client = new DynamoDBClient({ region: 'us-west-2' }); // Set the AWS region
@@ -58,3 +59,18 @@ export const createTable = async () => {
     }
   }
 };
+
+
+// Define a Zod schema for input validation
+export const schema = z.object({
+  business: z.string().min(1),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  emailAddress: z.string().min(1).refine((val) => val.includes('@'), {
+      message: 'Email address must contain an "@" symbol',
+  }),
+  phoneNumber: z.string().min(1),
+  description: z.string().min(1),
+  // Add a new field for reCAPTCHA response
+  'g-recaptcha-response': z.string().min(1),
+});
