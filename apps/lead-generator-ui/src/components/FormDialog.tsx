@@ -14,7 +14,6 @@ import { sendCustomerOutreachData } from '@/app/rest-client';
 
 export default function FormDialog({inline, business}:{inline:boolean, business: keyof typeof BUSINESS_SPECIFIC_DATA}) {
   const [open, setOpen] = React.useState(false);
-  console.log('BUSINESS', business)
   const handleClickOpen = () => {
     setOpen(true);
   };
