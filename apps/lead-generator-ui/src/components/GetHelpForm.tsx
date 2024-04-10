@@ -6,18 +6,18 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { Box, Paper } from '@mui/material';
 import { MinHeightTextarea } from './TextAreaAutoSize';
-import { ReCaptcha } from "./RecaptchaClientSideComponent";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 
 
-export function GetHelpForm() {
+export function GetHelpForm({onChange, errorMap}:{onChange: any, errorMap: {[key:string]:string[]}}) {
   const [values, setValues] = React.useState({
     firstName: '',
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
     description: '',
-    captchaResponse: ''
+    'g-recaptcha-response': ''
   });
 
 
@@ -28,12 +28,17 @@ export function GetHelpForm() {
     }
     setValues(newValues);
   };
+  React.useEffect(() => {
+
+    onChange(values)
+
+  },[values])
 
   return (
     <Box>
       <Paper elevation={4} sx={{ p: 2, mt: 2 }} >
         <Stack direction="row" spacing={2}>
-          <FormControl variant="standard">
+          <FormControl variant="standard" error={!!errorMap.firstName}>
             <InputLabel htmlFor="first-name">First Name</InputLabel>
             <Input
               value={values.firstName}
@@ -42,7 +47,7 @@ export function GetHelpForm() {
               id="firstName"
             />
           </FormControl>
-          <FormControl variant="standard">
+          <FormControl variant="standard" error={!!errorMap.lastName}>
             <InputLabel htmlFor="lastName">Last Name</InputLabel>
             <Input
               value={values.lastName}
@@ -54,7 +59,7 @@ export function GetHelpForm() {
         </Stack>
 
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-          <FormControl variant="standard">
+          <FormControl variant="standard" error={!!errorMap.phoneNumber}>
             <InputLabel htmlFor="phoneNumber">Phone Number</InputLabel>
             <Input
               value={values.phoneNumber}
@@ -64,7 +69,7 @@ export function GetHelpForm() {
               id="phoneNumber"
             />
           </FormControl>
-          <FormControl variant="standard">
+          <FormControl variant="standard" error={!!errorMap.emailAddress}>
             <InputLabel htmlFor="emailAddress">Email Address</InputLabel>
             <Input
               value={values.emailAddress}
@@ -74,7 +79,7 @@ export function GetHelpForm() {
             />
           </FormControl>
         </Stack>
-        <FormControl variant="standard" sx={{ mt: 2, width: '100%' }}>
+        <FormControl variant="standard" sx={{ mt: 2, width: '100%' }} error={!!errorMap.description}>
           <MinHeightTextarea
             value={values.description}
             onChange={handleChange}
@@ -85,7 +90,11 @@ export function GetHelpForm() {
 
       </Paper>
       <Box mt={2} pr={0}>
-        <ReCaptcha handleChange={handleChange}/>
+      <ReCAPTCHA
+          sitekey="6LewGbMpAAAAAKCTIQGZ2aB3rJnM3eKH-9KqgIPG"
+          onChange={(data: any) => {
+            handleChange({ target: { name: 'g-recaptcha-response', value: data } } as any)
+          }}/>
       </Box>
     </Box>
   );

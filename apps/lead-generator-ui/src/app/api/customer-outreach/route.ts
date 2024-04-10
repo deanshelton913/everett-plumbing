@@ -7,7 +7,7 @@ import { verifyReCaptcha } from '@/app/rest-client';
 
 
 // Define a Zod schema for input validation
-const schema = z.object({
+export const schema = z.object({
     business: z.string().min(1),
     firstName: z.string().min(1),
     lastName: z.string().min(1),

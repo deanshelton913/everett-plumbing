@@ -11,9 +11,13 @@ import Email from '@mui/icons-material/Email';
 import { Typography } from '@mui/material';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { sendCustomerOutreachData } from '@/app/rest-client';
+import { schema } from '@/app/api/customer-outreach/route';
+import { z } from 'zod';
 
 export default function FormDialog({inline, business}:{inline:boolean, business: keyof typeof BUSINESS_SPECIFIC_DATA}) {
   const [open, setOpen] = React.useState(false);
+  const [valid, setValidity] = React.useState(false);
+  const [errorMap, setErrorMap] = React.useState({});
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -21,6 +25,20 @@ export default function FormDialog({inline, business}:{inline:boolean, business:
   const handleClose = () => {
     setOpen(false);
   };
+  const onChange = (formJson:any) => {
+
+    try{
+      schema.parse({...formJson, business})
+      setValidity(true);
+      setErrorMap({})
+      console.log(true)
+    }catch(e){
+      if (e instanceof z.ZodError) {
+        setErrorMap(e.formErrors.fieldErrors)
+      }
+      setValidity(false);
+    }
+  }
 
 
   return (
@@ -43,8 +61,9 @@ export default function FormDialog({inline, business}:{inline:boolean, business:
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            sendCustomerOutreachData({...formJson, business}).then(console.log).catch(console.error)
-            handleClose();
+
+              sendCustomerOutreachData({...formJson, business}).then(console.log).catch(console.error)
+              handleClose();
           },
         }}
       >
@@ -55,7 +74,7 @@ export default function FormDialog({inline, business}:{inline:boolean, business:
           we will contact you via phone, email,
            or text about service details. 
           </DialogContentText>
-          <GetHelpForm />
+          <GetHelpForm onChange={onChange} errorMap={errorMap}/>
           <Typography component={'div'} sx={{mt:2}} variant='caption'>
           
            You can opt out anytime. 
@@ -66,7 +85,7 @@ export default function FormDialog({inline, business}:{inline:boolean, business:
         
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Send</Button>
+          <Button disabled={!valid} type="submit">Send</Button>
         </DialogActions>
         
       </Dialog>
