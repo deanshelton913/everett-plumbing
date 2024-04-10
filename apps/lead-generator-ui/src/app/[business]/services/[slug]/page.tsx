@@ -8,7 +8,6 @@ import { Metadata, ResolvingMetadata } from 'next';
 import * as React from 'react';
 import crypto from 'crypto';
 import Image from 'next/image';
-import MediaCard from '@/components/MediaCard';
 
 interface Props {
   params: {
@@ -150,11 +149,12 @@ export default function Page({ params }: Props) {
               ))}
             </div>
             <div >
-              <Image alt={service.title} width="300" height="300" src={getSihImageRequestUrl({
-                src: `${params.business}${service.servicePhoto}`,
-                width: 300,
-                quality: 60
-              })}/>
+              
+              <Image 
+              alt={service.title} 
+              width="300" 
+              height="300" 
+              src={`/images/${params.business}${service.servicePhoto}`}/>
             </div>
           </Box>
 
