@@ -6,6 +6,8 @@ import { Analytics } from "@vercel/analytics/react"
 import theme from '@/theme';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
+export const revalidate = 0
+
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">

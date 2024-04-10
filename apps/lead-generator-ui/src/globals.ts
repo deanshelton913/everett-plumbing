@@ -1,7 +1,7 @@
 
 export const BUSINESS_SPECIFIC_DATA = {
   'everett-plumbers': {
-    url: "https://www.everett-plumbers.com",
+    url: "https://everett-plumbers.com",
     name: 'Everett Plumbers',
     slogan: 'Plumbing Excellence, Guaranteed Satisfaction!',
     phone: '4254722069',

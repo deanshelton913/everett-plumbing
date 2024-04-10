@@ -61,18 +61,37 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const service = BUSINESS_SPECIFIC_DATA[params.business].services.find(x => x.slug === params.slug)
+  const business = BUSINESS_SPECIFIC_DATA[params.business];
+  const service = business.services.find(x => x.slug === params.slug)
   if (!service) {
     console.warn('missing service', params.business, params.slug)
     return {}
   }
+  const title = `${business.name} | ${service.title} | ${business.slogan}`;
   const metadata: Metadata = {
-    title: `${BUSINESS_SPECIFIC_DATA[params.business].name} | ${service.title}`,
+    title,
     description: service.description,
-    keywords: service.keywords
+    keywords: service.keywords,
+    openGraph: {
+      type: "website",
+      url: `${business.url}/services/${service.slug}`,
+      title,
+      description: business.description,
+      siteName: business.name,
+      images: [{
+        url: `${business.url}/images/${business}/logo.webp`,
+      }],
+    }
   }
   return metadata
 }
+
+
+
+
+
+
+
 
 function generateUniqueKey(input: string) {
   // Create a hash object

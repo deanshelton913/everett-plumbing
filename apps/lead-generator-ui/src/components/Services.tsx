@@ -46,7 +46,7 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
             {BUSINESS_SPECIFIC_DATA[business].services.map((obj) => {
               return (
 
-                <Typography align="center" variant="body2" >
+                <Typography key={obj.slug} component={'div'} align="center" variant="body2" >
 
                   <Link href={`/services/${obj.slug}`} style={{
                     textDecoration: 'none',

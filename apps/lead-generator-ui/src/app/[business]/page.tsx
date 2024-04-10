@@ -15,6 +15,7 @@ import FormDialog from '@/components/FormDialog';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import MediaCard from '@/components/MediaCard';
 import Image from 'next/image';
+import Head from 'next/head';
 
 
 const addJsonLd = (business: keyof typeof BUSINESS_SPECIFIC_DATA) => {
@@ -49,29 +50,41 @@ interface Props {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
+
+
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  if(!params.slug) return {}
-  const service = BUSINESS_SPECIFIC_DATA[params.business].services.find(x => x.slug === params.slug)
-  if (!service) {
-    console.warn('missing service', params.business, params.slug)
-    return {}
-  }
+
+  const business = BUSINESS_SPECIFIC_DATA[params.business];
+  const title = `${business.name} | ${business.slogan}`
   const metadata: Metadata = {
-    title: `${BUSINESS_SPECIFIC_DATA[params.business].name} | ${service.title}`,
-    description: service.description,
-    keywords: service.keywords
+    title,
+    description: business.description,
+    keywords: business.keywords,
+    openGraph: {
+      type: "website",
+      url: business.url,
+      title,
+      description: business.description,
+      siteName: business.name,
+      images: [{
+        url: `${business.url}/images/${business}/logo.webp`,
+      }],
+    }
   }
   return metadata
 }
 
 
-export default function Home({params}:Props) {
-  
+export default function Home({ params }: Props) {
+
   return (
     <div>
+      <Head>
+        <title>{BUSINESS_SPECIFIC_DATA[params.business].name}</title>
+      </Head>
       <section>
         <script
           type="application/ld+json"
@@ -79,16 +92,16 @@ export default function Home({params}:Props) {
         />
       </section>
       <Container maxWidth="lg">
-        <ResponsiveAppBar business={params.business}/>
+        <ResponsiveAppBar business={params.business} />
         <Hidden mdUp>
           <LargeCTA business={params.business} />
         </Hidden>
         <Services business={params.business} />
         <Hidden mdDown>
 
-        <FormDialog inline={false} business={params.business}/>
+          <FormDialog inline={false} business={params.business} />
         </Hidden>
-        <Hero business={params.business}/>
+        <Hero business={params.business} />
         <Testimonials business={params.business} />
 
 
@@ -117,7 +130,7 @@ export default function Home({params}:Props) {
           >
             {BUSINESS_SPECIFIC_DATA[params.business].slogan}
           </Typography>
-          <Copyright business={params.business}/>
+          <Copyright business={params.business} />
         </Box>
       </Container>
     </div>

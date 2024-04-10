@@ -17,7 +17,7 @@ import FormatQuote from '@mui/icons-material/FormatQuote';
 import theme from '@/theme';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { formatPhoneNumber } from '@/utils';
-import Image from 'next/image';
+import { Hidden } from '@mui/material';
 
 function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIFIC_DATA }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -39,23 +39,27 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              color='inherit'
-              component="div"
-              mr={2}
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              {BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}
-            </Typography>
+          <Hidden mdDown>
+            <Box display="flex" alignItems="center">
+              <Typography
+                variant="h6"
+                noWrap
+                color="inherit"
+                component="div"
+                sx={{
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                {BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}
+              </Typography>
+              
+            </Box>
+            </Hidden>
+
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
@@ -123,6 +127,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
                   color: 'inherit',
                   textDecoration: 'none'
                 }}>{BUSINESS_SPECIFIC_DATA[business].name}</a>
+                
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page, i) => (
@@ -151,18 +156,6 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
         </Container>
 
       </AppBar>
-      <Box position="relative" textAlign="center" pt={2}>
-        <Image
-          alt={`${business} logo`}
-          height={100}
-          width={100}
-          src={`/images/${business}-logo.webp`}
-          style={{
-            overflow: 'hidden',
-            borderRadius: '50%'
-          }}
-        />
-      </Box>
     </div>
   );
 }
