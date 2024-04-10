@@ -54,7 +54,18 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
                   textDecoration: 'none',
                 }}
               >
-                {BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}
+                <a
+                aria-label='Company Name'
+                href="/"
+                style={{
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '0.1rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  marginRight:'10px'
+                }}>{BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}</a>
+                
               </Typography>
               
             </Box>

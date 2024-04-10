@@ -2,7 +2,7 @@ import { Paper, Grid, Typography, Hidden, Box } from "@mui/material";
 import MediaCard from "./MediaCard";
 import { BUSINESS_SPECIFIC_DATA } from "@/globals";
 import Link from "next/link";
-import { getSihImageRequestUrl } from "@/utils";
+
 
 export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA }> = ({ business }) => (
   <section id="services">
@@ -21,8 +21,9 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
                 <Link href={`/services/${obj.slug}`} style={{ textDecoration: 'none' }}>
                   <MediaCard
                     title={obj.teaser.title}
-                    imageKey={`${business}${obj.teaser.imageKey}`}
+                    url={`/images/${business}${obj.teaser.imageKey}`}
                     text={obj.teaser.text}
+                    height={300}
                   />
                 </Link>
               </Grid>
