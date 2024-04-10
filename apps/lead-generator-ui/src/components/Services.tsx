@@ -35,7 +35,6 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
         </Box>
         
         <Box sx={{display: { xs: 'block', md: 'none', lg: 'none', xl: 'none' } }}>
-          small
           <Grid container display={'flex'} justifyContent={'center'} flex={1} spacing={2} sx={{
             gridTemplateColumns: '200px 200px',
             gridRow: 'auto auto',
