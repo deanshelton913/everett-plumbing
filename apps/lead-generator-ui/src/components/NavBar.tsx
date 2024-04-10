@@ -18,6 +18,7 @@ import theme from '@/theme';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { formatPhoneNumber } from '@/utils';
 import { Hidden } from '@mui/material';
+import Link from 'next/link';
 
 function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIFIC_DATA }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -39,36 +40,36 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-          <Hidden mdDown>
-            <Box display="flex" alignItems="center">
-              <Typography
-                variant="h6"
-                noWrap
-                color="inherit"
-                component="div"
-                sx={{
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              >
-                <a
-                aria-label='Company Name'
-                href="/"
-                style={{
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '0.1rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                  marginRight:'10px'
-                }}>{BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}</a>
-                
-              </Typography>
-              
-            </Box>
+            <Hidden mdDown>
+              <Box display="flex" alignItems="center">
+                <Typography
+                  variant="h6"
+                  noWrap
+                  color="inherit"
+                  component="div"
+                  sx={{
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <a
+                    aria-label='Company Name'
+                    href="/"
+                    style={{
+                      fontFamily: 'monospace',
+                      fontWeight: 700,
+                      letterSpacing: '0.1rem',
+                      color: 'inherit',
+                      textDecoration: 'none',
+                      marginRight: '10px'
+                    }}>{BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}</a>
+
+                </Typography>
+
+              </Box>
             </Hidden>
 
 
@@ -107,7 +108,9 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
                     key={page} onClick={handleCloseNavMenu} style={{
                       display: 'flex', textAlign: 'center', ...colors[i]
                     }}>
-                    {icons[i] && icons[i]} {page}
+                    <Link href={href[i] || '#'} style={{ textDecoration: 'none', color: theme.palette.text.primary }}>
+                      {icons[i] && icons[i]} {page}
+                    </Link>
                   </MenuItem>
                 ))}
               </Menu>
@@ -138,7 +141,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
                   color: 'inherit',
                   textDecoration: 'none'
                 }}>{BUSINESS_SPECIFIC_DATA[business].name}</a>
-                
+
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page, i) => (
