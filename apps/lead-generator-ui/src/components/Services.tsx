@@ -64,12 +64,8 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
                       alignItems: 'center',
                       justifyContent: 'center',
                       backgroundRepeat: 'no-repeat',
-                      backgroundImage: `url(${getSihImageRequestUrl({
-                        src: `${business}${obj.teaser.imageKey}`,
-                        width: 100,
-                        height: 100,
-                        quality: 1,
-                      })}) `
+                      backgroundImage: `url(/images/${business}${obj.teaser.imageKey}) `,
+                      backgroundSize: '100px 100px'
                     }}>
                     </Grid>
                   </Link>

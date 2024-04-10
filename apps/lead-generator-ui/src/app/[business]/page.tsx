@@ -13,6 +13,8 @@ import { Hero } from '@/components/Hero';
 import { Hidden } from '@mui/material';
 import FormDialog from '@/components/FormDialog';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
+import MediaCard from '@/components/MediaCard';
+import Image from 'next/image';
 
 
 const addJsonLd = (business: keyof typeof BUSINESS_SPECIFIC_DATA) => {

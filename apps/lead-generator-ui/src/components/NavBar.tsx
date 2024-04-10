@@ -17,6 +17,7 @@ import FormatQuote from '@mui/icons-material/FormatQuote';
 import theme from '@/theme';
 import { BUSINESS_SPECIFIC_DATA } from '@/globals';
 import { formatPhoneNumber } from '@/utils';
+import Image from 'next/image';
 
 function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIFIC_DATA }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -34,120 +35,135 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            color='inherit'
-            component="div"
-            mr={2}
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <div>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              color='inherit'
+              component="div"
+              mr={2}
               sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-
-              {pages.map((page, i) => (
-                <MenuItem
-                  key={page} onClick={handleCloseNavMenu} style={{
-                    display: 'flex', textAlign: 'center', ...colors[i]
-                  }}>
-                  {icons[i] && icons[i]} {page}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            mr={2}
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            <a
-              aria-label='Company Name'
-              href="/"
-              style={{
+                display: { xs: 'none', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
-                letterSpacing: '0.1rem',
+                letterSpacing: '.3rem',
                 color: 'inherit',
-                textDecoration: 'none'
-              }}>{BUSINESS_SPECIFIC_DATA[business].name}</a>
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, i) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                href={href[i] ? (href[i] as string) : ''}
+                textDecoration: 'none',
+              }}
+            >
+              {BUSINESS_SPECIFIC_DATA[business].name.toUpperCase()}
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
                 sx={{
-                  ...colors[i],
-                  my: 2,
-                  color: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center'
+                  display: { xs: 'block', md: 'none' },
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {icons[i] && icons[i]}
-                  <div>{page}</div>
-                </div>
-              </Button>
-            ))}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+
+                {pages.map((page, i) => (
+                  <MenuItem
+                    key={page} onClick={handleCloseNavMenu} style={{
+                      display: 'flex', textAlign: 'center', ...colors[i]
+                    }}>
+                    {icons[i] && icons[i]} {page}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              mr={2}
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.1rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              <a
+                aria-label='Company Name'
+                href="/"
+                style={{
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '0.1rem',
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }}>{BUSINESS_SPECIFIC_DATA[business].name}</a>
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page, i) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  href={href[i] ? (href[i] as string) : ''}
+                  sx={{
+                    ...colors[i],
+                    my: 2,
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {icons[i] && icons[i]}
+                    <div>{page}</div>
+                  </div>
+                </Button>
+              ))}
+            </Box>
+          </Toolbar>
+        </Container>
+
+      </AppBar>
+      <Box position="relative" textAlign="center" pt={2}>
+        <Image
+          alt={`${business} logo`}
+          height={100}
+          width={100}
+          src={`/images/${business}-logo.webp`}
+          style={{
+            overflow: 'hidden',
+            borderRadius: '50%'
+          }}
+        />
+      </Box>
+    </div>
   );
 }
 
