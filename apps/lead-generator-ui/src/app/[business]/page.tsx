@@ -87,14 +87,14 @@ export default function Home({ params }: Props) {
       </section>
       <Container maxWidth="lg">
         <ResponsiveAppBar business={params.business} />
-        <Hidden mdUp>
+        <Box sx={{ display: { xs: 'block', sm: 'block', md: 'none', lg: 'none', xl: 'none' } }} >
           <LargeCTA business={params.business} />
-        </Hidden>
+        </Box>
         <Services business={params.business} />
-        <Hidden mdDown>
+        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' } }} >
 
           <FormDialog inline={false} business={params.business} />
-        </Hidden>
+        </Box>
         <Hero business={params.business} />
         <Testimonials business={params.business} />
 

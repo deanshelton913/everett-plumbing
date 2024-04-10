@@ -1,6 +1,5 @@
 import { Button, Paper } from "@mui/material"
 import PhoneIcon from '@mui/icons-material/Phone';
-import theme from "@/theme";
 import FormDialog from "./FormDialog";
 import { BUSINESS_SPECIFIC_DATA } from "@/globals";
 import { formatPhoneNumber } from "@/utils";

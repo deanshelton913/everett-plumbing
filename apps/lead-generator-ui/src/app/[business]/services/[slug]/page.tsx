@@ -118,12 +118,12 @@ export default function Page({ params }: Props) {
       </section>
       <Container maxWidth="lg">
         <ResponsiveAppBar business={params.business} />
-        <Hidden mdUp>
+        <Box sx={{ display: { xs: 'none', md: 'block', lg: 'block', xl: 'block' } }} >
           <LargeCTA business={params.business} />
-        </Hidden>
-        <Hidden mdDown>
+        </Box>
+        <Box sx={{ display: { xs: 'block', md: 'none', lg: 'none', xl: 'none' } }} >
           <FormDialog inline={false} business={params.business} />
-        </Hidden>
+        </Box>
         <Paper elevation={5} sx={{
           p: 5, mt: 2, backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${getSihImageRequestUrl({
             src: `${params.business}${service.bgPhoto}`,
@@ -154,7 +154,8 @@ export default function Page({ params }: Props) {
               alt={service.title} 
               width="300" 
               height="300" 
-              src={`/images/${params.business}${service.servicePhoto}`}/>
+              src={getSihImageRequestUrl({src:`/images/${params.business}${service.servicePhoto}`,width:300,height:300, quality:60})}
+              />
             </div>
           </Box>
 

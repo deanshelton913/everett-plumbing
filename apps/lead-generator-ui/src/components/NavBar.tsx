@@ -40,7 +40,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Hidden mdDown>
+          <Box sx={{ display: { xs: 'none' ,sm:'none', md: 'block', lg: 'block', xl: 'block' } }} >
               <Box display="flex" alignItems="center">
                 <Typography
                   variant="h6"
@@ -70,7 +70,7 @@ function ResponsiveAppBar({ business }: { business: keyof typeof BUSINESS_SPECIF
                 </Typography>
 
               </Box>
-            </Hidden>
+            </Box>
 
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

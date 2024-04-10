@@ -2,6 +2,7 @@ import { Paper, Grid, Typography, Hidden, Box } from "@mui/material";
 import MediaCard from "./MediaCard";
 import { BUSINESS_SPECIFIC_DATA } from "@/globals";
 import Link from "next/link";
+import { getSihImageRequestUrl } from "@/utils";
 
 
 export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA }> = ({ business }) => (
@@ -13,15 +14,16 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
       <Typography pb={2} textAlign={'justify'} maxWidth={600}>
         {BUSINESS_SPECIFIC_DATA[business].servicesDescription}
       </Typography>
-      <Hidden smDown>
-        <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+      <Box sx={{display: { xs: 'none', md: 'block', lg: 'block', xl: 'block' } }} >
+        large
+        <Grid container spacing={2} sx={{ justifyContent: 'center'}}>
           {BUSINESS_SPECIFIC_DATA[business].services.map((obj) => {
             return (
               <Grid item key={obj.slug} xs={10} sm={6} md={3}>
                 <Link href={`/services/${obj.slug}`} style={{ textDecoration: 'none' }}>
                   <MediaCard
                     title={obj.teaser.title}
-                    url={`/images/${business}${obj.teaser.imageKey}`}
+                    url={getSihImageRequestUrl({src:`/images/${business}${obj.teaser.imageKey}`, height:300, width:300})}
                     text={obj.teaser.text}
                     height={300}
                   />
@@ -30,11 +32,10 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
             )
           })}
         </Grid>
-      </Hidden>
-
-      <Hidden mdUp>
-        <Box >
-
+        </Box>
+        
+        <Box sx={{display: { xs: 'block', md: 'none', lg: 'none', xl: 'none' } }}>
+          small
           <Grid container display={'flex'} justifyContent={'center'} flex={1} spacing={2} sx={{
             gridTemplateColumns: '200px 200px',
             gridRow: 'auto auto',
@@ -65,7 +66,7 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
                       alignItems: 'center',
                       justifyContent: 'center',
                       backgroundRepeat: 'no-repeat',
-                      backgroundImage: `url(/images/${business}${obj.teaser.imageKey}) `,
+                      backgroundImage: `url(${getSihImageRequestUrl({src:`/images/${business}${obj.teaser.imageKey}`, height:100, width: 100, quality:75})}) `,
                       backgroundSize: '100px 100px'
                     }}>
                     </Grid>
@@ -77,7 +78,6 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
           </Grid>
         </Box>
 
-      </Hidden>
     </Paper>
   </section>
 )
