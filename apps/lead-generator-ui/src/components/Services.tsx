@@ -69,8 +69,8 @@ export const Services: React.FC<{ business: keyof typeof BUSINESS_SPECIFIC_DATA 
                       backgroundSize: '100px 100px'
                     }}>
                     </Grid>
-                  </Link>
                   {obj.teaser.title}
+                  </Link>
                 </Typography>
               )
             })}
